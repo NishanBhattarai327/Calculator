@@ -1,0 +1,11 @@
+#display {
+	width: 450px;
+	height: 40px;
+	border: 2px solid black;
+}
+
+#calculator {
+	width: 500px;
+	height: 600px;
+	background-color: rgba(242, 22, 2, 0.5);
+}
