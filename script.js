@@ -1,3 +1,11 @@
+/*
+*this is theodinproject exercise
+*Work that is not done
+***Disabling user to input more than one decimal in single number
+***Rounding the decimal place of calculation
+***Adding keyboard support
+*/
+
 ////////////////////////////////////////////////////////
 /////////////////////Function Section//////////////////
 //////////////////////////////////////////////////////
