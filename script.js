@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////
+/////////////////////Function Section//////////////////
+//////////////////////////////////////////////////////
+
 function add(x, y) {
 	return x + y;
 }
@@ -8,6 +12,9 @@ function multiply(x, y) {
 	return x * y;
 }
 function divide(x, y) {
+	if (parseFloat(y) === 0){
+		return 'OOPs';
+	}
 	return x / y;
 }
 function modulus(x, y) {
@@ -57,6 +64,7 @@ function updateDisplay(msg, clear=false) {
 	}
 	else {
 		display.textContent += msg;
+		renderMsg('');
 	}
 }
 
@@ -65,8 +73,12 @@ function renderMsg(msg) {
 }
 
 function solve() {
+	//if parsed for first time without input
 	if(input[0] !== undefined){
 		renderMsg('');
+
+		//solving the equation inputed using badmas rule
+
 		let operators = ['/', '*', '%', '+', '-'];
 		let equation = input.join('').split(' ').map(elem => parseFloat(elem) ? parseFloat(elem) : elem);
 
@@ -74,10 +86,24 @@ function solve() {
 		for (let i = 0; i < operators.length; i++) {
 			while(equation.includes(operators[i])) {
 				indexOfOperator = equation.indexOf(operators[i]);
-				firstNumber = equation[indexOfOperator-1];
+				firstNumber = parseFloat(equation[indexOfOperator-1]);
 				operator = equation[indexOfOperator];
-				secondNumber = equation[indexOfOperator+1];
+				secondNumber = parseFloat(equation[indexOfOperator+1]);
+
+				//Don't perfor calculation if equation is invalid
+				if (isNaN(firstNumber) || isNaN(secondNumber)) {
+					clear();
+					renderMsg('OOPs');
+					return;
+				}
 				result = operate(firstNumber, operator, secondNumber);
+
+				//if the equation has number divide by zero
+				if (result === 'OOPs') {
+					clear();
+					renderMsg('OOPs');
+					return;
+				}
 				equation.splice(indexOfOperator-1, 3, result);
 			}
 		}
@@ -85,13 +111,16 @@ function solve() {
 		clear();
 		updateDisplay(equation.join(''), true);
 		input = equation.join('').split('');
-		console.log(equation, input);
 	}
 	else{
 		renderMsg('No Input');
 	}
 }
 
+
+///////////////////////////////////////////////////////////////
+/////////////////Main Section/////////////////////////////////
+/////////////////////////////////////////////////////////////
 
 let input = [];
 let display = document.querySelector('#output');
